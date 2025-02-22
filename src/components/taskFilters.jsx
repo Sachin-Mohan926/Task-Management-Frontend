@@ -1,18 +1,14 @@
 const TaskFilters = ({ setFiltersObj }) => {
-    // DO PROP VALIDATION :: PropTypes...
+    
     const handleFilter = (key, value) => {
         setFiltersObj((prev) => {
-            const newObj = { ...prev }; // copy of object but new address
+            const newObj = { ...prev };
             newObj[key] = value;
             return newObj;
         });
     };
     return (
         <div>
-            {/* <div>
-                <input />
-                <button>Search</button>
-            </div> */}
             <div>
                 <label>Priority</label>
                 <select

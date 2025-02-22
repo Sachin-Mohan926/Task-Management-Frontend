@@ -1,18 +1,14 @@
 import { useState } from "react";
 import "./taskList.css"; //ES6
 import PropTypes from "prop-types";
-// require("./taskList.css") // CJS
 
-// re-render === re-run the function
 const TaskList = ({ list, getData, filterObj, title }) => {
-    // HW, TODO : add prop validation
+
     const [editTask, setEditTask] = useState(-1);
     const [editObject, setEditObject] = useState({});
-    // console.log("🟡 : editObject:", editObject);
-    // console.log("🟡 : editTask:", editTask); // 2
 
     const handleEditField = (key, value) => {
-        // console.log(key, value);
+
         setEditObject((prev) => {
             const newObj = { ...prev };
             newObj[key] = value;
@@ -85,14 +81,13 @@ const TaskList = ({ list, getData, filterObj, title }) => {
             <h3 className="task-list-title">{title}</h3>
             <div className="task-list-task-container">
                 {filteredList.map((elem, idx) => {
-                    // key :: best: unique property on your own, good: index, worst: nothing as key
+        
                     return (
                         <div key={elem._id} className="task-card">
                             <h5>{idx}</h5>
                             <p>{elem.workTitle}</p>
                             <p>{elem.taskTitle}</p>
-                            {/* short hand of if - else  */}
-                            {/* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator */}
+
                             {idx === editTask ? (
                                 <div>
                                     <label>Assignee</label>
@@ -102,7 +97,6 @@ const TaskList = ({ list, getData, filterObj, title }) => {
                                             handleEditField("assignee", e.target.value);
                                         }}
                                     />
-                                    {/* controlled  input*/}
                                 </div>
                             ) : (
                                 <p>{elem.assignee}</p>
@@ -124,7 +118,7 @@ const TaskList = ({ list, getData, filterObj, title }) => {
                                         <option value="high">High</option>
                                         <option value="urgent">Urgent</option>
                                     </select>
-                                    {/* controlled  input*/}
+
                                 </div>
                             ) : (
                                 <p>{elem.priority}</p>
@@ -169,7 +163,6 @@ const TaskList = ({ list, getData, filterObj, title }) => {
     );
 };
 
-// https://legacy.reactjs.org/docs/typechecking-with-proptypes.html
 TaskList.propTypes = {
     list: PropTypes.array,
     getData: PropTypes.func,

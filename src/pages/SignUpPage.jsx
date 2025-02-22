@@ -1,6 +1,7 @@
+import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import "./SignUpPage.css";
+import '../assets/SignUpPage.css';
 
 const SignUpPage = () => {
     const [isOtpSent, setIsOtpSent] = useState(false);
@@ -47,7 +48,7 @@ const SignUpPage = () => {
         try {
             e.preventDefault();
 
-            const resp = await fetch(import.meta.env.VITE_BACKEND_URL + "/otps", {
+            const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/otps", {
                 method: "POST",
                 body: JSON.stringify({
                     email: e.target.userEmail.value,
@@ -57,7 +58,7 @@ const SignUpPage = () => {
                 },
             });
 
-            const respObj = await resp.json();
+            const respObj = await response.json();
             
             if (respObj.status === "success") {
                 setIsOtpSent(true);
@@ -73,41 +74,42 @@ const SignUpPage = () => {
 
     return (
         <div className="card">
-            <h1>Create an Account</h1>
             {isOtpSent ? (
                 <form onSubmit={handleRegister}>
+                    <h1>Create an Account</h1>
                     <div className="form1">
-                        <label for="fullname">Full Name</label>
+                        <label htmlFor="fullname">Name</label>
                         <input type="text" value={fullName} readOnly />
 
-                        <label for="email">Email</label>
+                        <label htmlFor="email">Email</label>
                         <input type="text" value={email} readOnly />
 
-                        <label for="OTP">OTP</label>
-                        <input type="text" required />
+                        <label htmlFor="OTP">OTP</label>
+                        <input type="text" name="otp" required />
 
-                        <label for="password">Password</label>
-                        <input type="password" required />
+                        <label htmlFor="password">Password</label>
+                        <input type="password" name="password" required />
                         
-                        <label for="Confirm Password">Confirm Password</label>
-                        <input type="password" required />
+                        <label htmlFor="Confirm Password">Confirm Password</label>
+                        <input type="password" name="confirmPassword" required />
                         
                         <button><b>Sign Up</b></button>
                     </div>
-                    <p>Already have an Account? <Link to="/login">Login</Link></p>
                 </form>
             ) : (
                 <form onSubmit={handleSendOtp}>
                     <div className="form1">
+                        <label htmlFor="fullname">Name</label>
                         <input type="text" placeholder="Full Name" name="fullName" required />
                         {/* Uncontrolled Inputs */}
+                        <label htmlFor="email">Email</label>
                         <input type="email" placeholder="Email" name="userEmail" required />
-                        {/* Uncontrolled Inputs */}
-                        <button>Send OTP</button>
+                    
                     </div>
+                    <button>Send OTP</button>
+                    <p>Already have an Account? <Link to="/login">Login</Link></p>
                 </form>
             )}
-            <Link to="/login">Login</Link>
         </div>
     );
 };

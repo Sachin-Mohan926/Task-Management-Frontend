@@ -23,17 +23,14 @@ const App = () => {
 
     const afterLogin = (respObj) => {
         const newStateOfUser = { isLoggedIn: true, fullName: respObj.data.user.fullName };
-        // window.console.log --> console.log() because window is a global object
-        // window.localStorage.setItem --> localStorage.setItem
         localStorage.setItem("isLoggedIn", true);
         setCurrUser(newStateOfUser);
     };
 
     const getLoggedInUserInfo = async () => {
-        // use try-catch here
         const resp = await fetch(import.meta.env.VITE_BACKEND_URL + "/users/me", {
             credentials: "include",
-        }); // be default the method of fetch is "GET", so I am not writing it
+        });
         const respObj = await resp.json();
         console.log(respObj);
         setCurrUser({
@@ -50,7 +47,6 @@ const App = () => {
     }, []);
 
     const handleLogout = async () => {
-        // use try-catch here
         localStorage.removeItem("isLoggedIn");
         const resp = await fetch(import.meta.env.VITE_BACKEND_URL + "/users/logout", {
             credentials: "include",
@@ -70,22 +66,9 @@ const App = () => {
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            currUser.isLoggedIn ? (
-                                <HomePage currUser={currUser} handleLogout={handleLogout} />
-                            ) : (
-                                <Navigate to="/login" />
-                            )
-                        }
-                    />
-                    <Route
-                        path="/login"
-                        element={currUser.isLoggedIn ? <Navigate to="/" /> : <LoginPage afterLogin={afterLogin} />}
-                    />
+                    <Route path="/" element={currUser.isLoggedIn ? <HomePage currUser={currUser} handleLogout={handleLogout} /> :<Navigate to="/sign-up" />}/>
+                    <Route path="/login" element={currUser.isLoggedIn ? <Navigate to="/" /> : <LoginPage afterLogin={afterLogin} />} />
                     <Route path="/sign-up" element={currUser.isLoggedIn ? <Navigate to="/" /> : <SignUpPage />} />
-                    <Route path="/tasks" element={currUser.isLoggedIn ? <TaskPage /> : <Navigate to="/login" />} />
                     <Route
                         path="*"
                         element={
@@ -94,6 +77,8 @@ const App = () => {
                             </div>
                         }
                     />
+                    <Route path="/tasks" element={currUser.isLoggedIn ?<TaskPage /> : <Navigate to="/login" /> } />
+
                 </Routes>
             </BrowserRouter>
         </div>
