@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TaskForm from "../components/taskForm";
 import TaskList from "../components/taskList";
 import TaskFilters from '../components/taskFilters';
-import "./taskPage.css";
+import "./TaskPage.css";
 
 const TaskPage = () => {
     const [list, setList] = useState([]);
