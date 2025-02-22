@@ -5,15 +5,6 @@ import SignUpPage from "./pages/SignUpPage";
 import { useEffect, useState } from "react";
 import TaskPage from "./pages/TaskPage";
 
-// when ever the value of STATE variable changes
-// the component is Re-Rendered (Re-Run) (line - by -line)
-
-// all state variables will get wiped out and the app will again work as fresh app
-// after you refresh the page
-
-// we will use localStorage to remember if the user is logged in or not
-// this is just to start the app, for any proper validation --> the backend will user token
-// token is safely stored in cookies, which javascript cannot access because we have sent httpOnly: true
 const App = () => {
     const [currUser, setCurrUser] = useState(() => {
         const isLoggedIn = localStorage.getItem("isLoggedIn");

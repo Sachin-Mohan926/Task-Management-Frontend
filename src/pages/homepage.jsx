@@ -1,4 +1,4 @@
-import Navbar from "./components/navbar";
+import Navbar from "../components/navbar";
 
 // we are getting currUser prop from App.jsx
 // and we are passing on it to the navbar component

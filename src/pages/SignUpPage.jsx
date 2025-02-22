@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import "./SignUpPage.css";
 
 const SignUpPage = () => {
     const [isOtpSent, setIsOtpSent] = useState(false);
@@ -10,9 +11,6 @@ const SignUpPage = () => {
     const handleRegister = async (e) => {
         try {
             e.preventDefault();
-
-            // do password validation using regex that it must contain ...
-            // add some more input fields in registration and store it in database
 
             if (e.target.password.value !== e.target.confirmPassword.value) {
                 alert("Password does not match!");
@@ -36,7 +34,6 @@ const SignUpPage = () => {
             const respObj = await resp.json();
             console.log(respObj);
             if (respObj.status === "success") {
-                // use hook to change the page useNavigate
                 navigate("/login");
             } else {
                 alert(respObj.message);
@@ -49,23 +46,19 @@ const SignUpPage = () => {
     const handleSendOtp = async (e) => {
         try {
             e.preventDefault();
-            // you can do some validation on email using regex (H.W.)
 
-            // console.log(e.target[0].value, e.target[1].value);
-            // console.log(e.target.fullName.value, e.target.userEmail.value);
             const resp = await fetch(import.meta.env.VITE_BACKEND_URL + "/otps", {
                 method: "POST",
                 body: JSON.stringify({
                     email: e.target.userEmail.value,
-                }), // javascript object to json --> JSON.stringify()
+                }),
                 headers: {
                     "content-type": "application/json",
                 },
             });
 
             const respObj = await resp.json();
-            // console.log(resp);
-            // console.log(respObj);
+            
             if (respObj.status === "success") {
                 setIsOtpSent(true);
                 setFullName(e.target.fullName.value);
@@ -79,28 +72,39 @@ const SignUpPage = () => {
     };
 
     return (
-        <div>
+        <div className="card">
+            <h1>Create an Account</h1>
             {isOtpSent ? (
                 <form onSubmit={handleRegister}>
-                    <input type="text" value={email} readOnly />
-                    {/* Controlled Inputs but we already have the value */}
-                    <input type="text" value={fullName} readOnly />
-                    {/* Controlled Inputs but we already have the value */}
-                    <input type="text" placeholder="OTP" name="otp" required />
-                    {/* Uncontrolled Inputs */}
-                    <input type="password" placeholder="Password" name="password" required />
-                    {/* Uncontrolled Inputs */}
-                    <input type="password" placeholder="Confirm Password" name="confirmPassword" required />
-                    {/* Uncontrolled Inputs */}
-                    <button>Register</button>
+                    <div className="form1">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" value={fullName} readOnly />
+
+                        <label for="email">Email</label>
+                        <input type="text" value={email} readOnly />
+
+                        <label for="OTP">OTP</label>
+                        <input type="text" required />
+
+                        <label for="password">Password</label>
+                        <input type="password" required />
+                        
+                        <label for="Confirm Password">Confirm Password</label>
+                        <input type="password" required />
+                        
+                        <button><b>Sign Up</b></button>
+                    </div>
+                    <p>Already have an Account? <Link to="/login">Login</Link></p>
                 </form>
             ) : (
                 <form onSubmit={handleSendOtp}>
-                    <input type="text" placeholder="Full Name" name="fullName" required />
-                    {/* Uncontrolled Inputs */}
-                    <input type="email" placeholder="Email" name="userEmail" required />
-                    {/* Uncontrolled Inputs */}
-                    <button>Send OTP</button>
+                    <div className="form1">
+                        <input type="text" placeholder="Full Name" name="fullName" required />
+                        {/* Uncontrolled Inputs */}
+                        <input type="email" placeholder="Email" name="userEmail" required />
+                        {/* Uncontrolled Inputs */}
+                        <button>Send OTP</button>
+                    </div>
                 </form>
             )}
             <Link to="/login">Login</Link>
