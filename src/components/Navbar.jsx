@@ -8,15 +8,9 @@ const Navbar = ({ currUser, handleLogout }) => {
             <span>Hello {currUser.fullName}</span>
 
             <Link to="/">Home</Link>
-<<<<<<< HEAD
             {/* <Link to="/login">Login</Link> */}
             <button onClick={handleLogout}>Log Out</button>
             {/* <Link to="/sign-up">Sign up</Link> */}
-=======
-{/*             <Link to="/login">Login</Link> */}
-            <button onClick={handleLogout}>Log Out</button>
-{/*             <Link to="/sign-up">Sign up</Link> */}
->>>>>>> f38f96dd7360b8e5b7e330f2193c6a99fb0c4fbe
             <Link to='/tasks'>Tasks</Link>
         </div>
     );
