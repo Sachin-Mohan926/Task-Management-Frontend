@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./taskList.css"; //ES6
-import PropTypes from "propTypes";
+import PropTypes from "prop-types";
 
 const TaskList = ({ list, getData, filterObj, title }) => {
 
