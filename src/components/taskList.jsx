@@ -65,7 +65,6 @@ const TaskList = ({ list, getData, filterObj, title }) => {
             }),
             headers: {
                 "content-type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
             },
         });
         const respObj = await resp.json();
