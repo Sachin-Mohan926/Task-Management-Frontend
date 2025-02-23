@@ -42,6 +42,7 @@ const TaskList = ({ list, getData, filterObj, title }) => {
     const handleDelete = async (taskId) => {
         const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/tasks/${taskId}`, {
             method: "DELETE",
+            credentials: "include",
         });
         console.log("🟡 : resp:", resp);
         if (resp.status === 204) {
@@ -60,6 +61,7 @@ const TaskList = ({ list, getData, filterObj, title }) => {
     const handleMarkAsDone = async (taskId) => {
         const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/tasks/${taskId}`, {
             method: "PATCH",
+            credentials: "include",
             body: JSON.stringify({
                 status: "done",
             }),
