@@ -19,6 +19,7 @@ const TaskList = ({ list, getData, filterObj, title }) => {
     const handleEditData = async () => {
         const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/tasks/${editObject._id}`, {
             method: "PATCH",
+            credentials: "include",
             body: JSON.stringify(editObject),
             headers: {
                 "content-type": "application/json",
